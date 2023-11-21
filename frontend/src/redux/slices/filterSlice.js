@@ -21,4 +21,6 @@ export const setTitleFilter = filterSlice.actions.setTitleFilter;
 // or
 // const { setTitleFilter } = filterSlice.actions;
 
+export const selectTitleFilter = (state) => state.filter.title; // name: 'filter', title: '',
+
 export default filterSlice.reducer;
