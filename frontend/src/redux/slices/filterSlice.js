@@ -15,10 +15,15 @@ const filterSlice = createSlice({
       // mutate state thanks to Immer Library
       state.title = action.payload;
     },
+    resetFilters: (state) => {
+      // return nitialState;
+      // or state.title = '';
+      return { ...initialState };
+    },
   },
 });
 
-export const { setTitleFilter } = filterSlice.actions;
+export const { setTitleFilter, resetFilters } = filterSlice.actions;
 
 export const selectTitleFilter = (state) => state.filter.title; // name: 'filter', title: '',
 
