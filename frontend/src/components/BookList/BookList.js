@@ -1,5 +1,10 @@
 import { useSelector } from 'react-redux';
-import { deleteBook, toggleFavorite } from '../../redux/books/actionCreator';
+// import { deleteBook, toggleFavorite } from '../../redux/books/actionCreator';
+import {
+  deleteBook,
+  toggleFavorite,
+  selectBooks,
+} from '../../redux/slices/booksSlice';
 import { useDispatch } from 'react-redux';
 import { BsBookmarkStarFill, BsBookmarkStar } from 'react-icons/bs';
 import {
@@ -10,7 +15,8 @@ import {
 import './BookList.css';
 
 const BookList = () => {
-  const books = useSelector((state) => state.books); // название доджно совпадать с reducer, we choose only part of our state
+  // const books = useSelector((state) => state.books); // название доджно совпадать с reducer, we choose only part of our state
+  const books = useSelector(selectBooks);
   const titleFilter = useSelector(selectTitleFilter);
   const authorFilter = useSelector(selectAuthorFilter);
   const onlyFavoriteFilter = useSelector(selectOnlyFavoriteFilter);
