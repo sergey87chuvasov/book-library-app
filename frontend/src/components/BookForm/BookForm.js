@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 // import { v4 as uuidv4 } from 'uuid';
 // import { addBook } from '../../redux/books/actionCreator';
+import axios from 'axios';
 import { addBook } from '../../redux/slices/booksSlice';
 import booksData from '../../data/books.json';
 import createBookWithID from '../../utils/createBookWithID';
@@ -14,11 +15,8 @@ const BookForm = () => {
   const dispatch = useDispatch();
 
   const handleAddRandomBook = () => {
-    // console.log(booksData);
     const randomIndex = Math.floor(Math.random() * booksData.length);
-    // console.log(randomIndex);
     const randomBook = booksData[randomIndex];
-    // console.log(randomBook);
 
     //payload
     // const randomBookWithID = {
@@ -36,9 +34,6 @@ const BookForm = () => {
     e.preventDefault();
 
     if (title && author) {
-      // dispatch action
-      // console.log(title, author);
-
       // const book = {
       //   title: title,
       //   author: author,
@@ -48,11 +43,23 @@ const BookForm = () => {
 
       // const book = createBookWithID({ title, author });
 
-      // console.log(addBook(book));
       dispatch(addBook(createBookWithID({ title, author })));
 
       setTitle('');
       setAuthor('');
+    }
+  };
+
+  const handleAddRandomBookViaAPI = async () => {
+    try {
+      const res = await axios.get('http://localhost:4000/random-book');
+      // console.log(res);
+      if (res.data && res.data.title && res.data.author) {
+        dispatch(addBook(createBookWithID(res.data)));
+      }
+      // or  if (res?.data?.title && res?.data?.author) {}
+    } catch (error) {
+      console.log(error, 'error');
     }
   };
 
@@ -81,6 +88,9 @@ const BookForm = () => {
         <button type='submit'>Add Book</button>
         <button type='button' onClick={handleAddRandomBook}>
           Add Random
+        </button>
+        <button type='button' onClick={handleAddRandomBookViaAPI}>
+          Add Random via API
         </button>
       </form>
     </div>
