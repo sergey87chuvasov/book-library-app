@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-// import { v4 as uuidv4 } from 'uuid';
-// import { addBook } from '../../redux/books/actionCreator';
-// import axios from 'axios';
 import { addBook, fetchBook } from '../../redux/slices/booksSlice';
 import booksData from '../../data/books.json';
 import createBookWithID from '../../utils/createBookWithID';
+import { setError } from '../../redux/slices/errorSlice';
 import './BookForm.css';
 
 const BookForm = () => {
@@ -18,15 +16,6 @@ const BookForm = () => {
     const randomIndex = Math.floor(Math.random() * booksData.length);
     const randomBook = booksData[randomIndex];
 
-    //payload
-    // const randomBookWithID = {
-    //   ...randomBook,
-    //   id: uuidv4(),
-    //   isFavorite: false,
-    // };
-
-    // const randomBookWithID = createBookWithID(randomBook);
-
     dispatch(addBook(createBookWithID(randomBook, 'random')));
   };
 
@@ -34,24 +23,16 @@ const BookForm = () => {
     e.preventDefault();
 
     if (title && author) {
-      // const book = {
-      //   title: title,
-      //   author: author,
-      //   id: uuidv4(),
-      //   isFavorite: false,
-      // };
-
-      // const book = createBookWithID({ title, author });
-
       dispatch(addBook(createBookWithID({ title, author }, 'manual')));
 
       setTitle('');
       setAuthor('');
+    } else {
+      dispatch(setError('You must fill title and author'));
     }
   };
 
   const handleAddRandomBookViaAPI = () => {
-    // dispatch(thunkFunction);
     dispatch(fetchBook());
   };
 

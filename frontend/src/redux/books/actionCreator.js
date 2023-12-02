@@ -7,16 +7,6 @@ export const addBook = (newBook) => {
   };
 };
 
-// example - неявный возврат {}
-/* 
-export const addBook = (newBook) => ({
-  
-    type: a.ADD_BOOK,
-    payload: newBook,
-
-});
-*/
-
 export const deleteBook = (id) => {
   return {
     type: a.DELETE_BOOK,

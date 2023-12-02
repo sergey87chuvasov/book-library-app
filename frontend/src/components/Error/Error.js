@@ -5,8 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { clearError, selectErrorMessage } from '../../redux/slices/errorSlice';
 
 const Error = () => {
-  // toast.info('test msg');
-  // toast.warn('test msg');
   const errorMessage = useSelector(selectErrorMessage);
 
   const dispatch = useDispatch();
@@ -14,7 +12,7 @@ const Error = () => {
   useEffect(() => {
     if (errorMessage) {
       toast.info(errorMessage);
-      dispatch(clearError);
+      dispatch(clearError());
     }
   }, [errorMessage, dispatch]);
 
